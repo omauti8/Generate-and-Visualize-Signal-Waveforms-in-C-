@@ -4,7 +4,6 @@
 #include <cmath>
 #include <memory>
 
-// Base class for Waveform
 class Waveform {
 public:
     virtual float generate(float time) = 0;
@@ -14,7 +13,6 @@ public:
     virtual ~Waveform() = default;
 };
 
-// Derived class for Sine Wave
 class SineWave : public Waveform {
 private:
     float frequency;
@@ -34,7 +32,6 @@ public:
     void setPhase(float ph) override { phase = ph; }
 };
 
-// Derived class for Square Wave
 class SquareWave : public Waveform {
 private:
     float frequency;
@@ -55,7 +52,6 @@ public:
     void setPhase(float ph) override { phase = ph; }
 };
 
-// Derived class for Triangle Wave
 class TriangleWave : public Waveform {
 private:
     float frequency;
@@ -81,13 +77,12 @@ void generateAndSaveWaveform(Waveform& waveform, float duration, int sampleRate,
     std::vector<std::pair<float, float> > waveformData;
     float timeStep = 1.0f / sampleRate;
 
-    // Generate waveform data
     for (float t = 0; t <= duration; t += timeStep) {
         float value = waveform.generate(t);
         waveformData.push_back({t, value});
     }
 
-    // Save to CSV file
+    
     std::ofstream file(filename);
     if (file.is_open()) {
         file << "Time,Value\n";
@@ -132,7 +127,7 @@ int main() {
             return 1;
     }
 
-    // Generate and save waveform data
+    
     generateAndSaveWaveform(*waveform, duration, sampleRate, "waveform.csv");
 
     return 0;
